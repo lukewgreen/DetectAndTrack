@@ -7,6 +7,8 @@ ENV Caffe2_DIR /usr/local/caffe2_build
 ENV PYTHONPATH /usr/local/caffe2_build:${PYTHONPATH}
 ENV LD_LIBRARY_PATH /usr/local/caffe2_build/lib:${LD_LIBRARY_PATH}
 
+RUN apt-get install vim
+
 RUN apt-get -y update
 
 # Clone the Detectron repository
