@@ -272,8 +272,10 @@ def main(name_scope, gpu_dev, num_images, args):
             with core.NameScope(name_scope):
                 with core.DeviceScope(gpu_dev):
                     cls_boxes_i, cls_segms_i, cls_keyps_i = im_detect_all(
-                        model, im_, None)                                        #TODO: Parallelize detection
-
+                        model, im_, None)                                        #TODO: Parallelize detection 
+            print(cls_boxes_i)
+            print(cls_segms_i)
+            print(cls_keyps_i)
             extend_results(i, all_boxes, cls_boxes_i)
             if cls_segms_i is not None:
                 extend_results(i, all_segms, cls_segms_i)
