@@ -383,28 +383,39 @@ def main(name_scope, gpu_dev, num_images, args):
 
     
 
-if __name__=='__main__':
-    workspace.GlobalInit(['caffe2', '--caffe2_log_level=0'])
-    args = parse_args()
-    if args.out_path == None:
-        args.out_path = args.video_path
-    args.vid_name = args.video_path.split('/')[-1].split('.')[0]
+workspace.GlobalInit(['caffe2', '--caffe2_log_level=0'])
+video_path = "../data2/pullups.mov"
+cfg_file = "configs/video/2d_best/01_R101_best_hungarian-4GPU.yaml"
+out_path = "../data2/tracks_and_visualizations"
+vid_name = video_path.split('/')[-1].split('.')[0]
 
-    utils.c2.import_custom_ops()
-    utils.c2.import_detectron_ops()
-    utils.c2.import_contrib_ops()
+utils.c2.import_custom_ops()
+utils.c2.import_detectron_ops()
+utils.c2.import_contrib_ops()
 
-    if args.cfg_file is not None:
-        cfg_from_file(args.cfg_file)
-    if args.opts is not None:
-        cfg_from_list(args.opts)
-    assert_and_infer_cfg()
+if args.cfg_file is not None:
+    cfg_from_file(args.cfg_file)
+if args.opts is not None:
+    cfg_from_list(args.opts)
+assert_and_infer_cfg()
 
-    if osp.exists(osp.join(args.out_path,args.vid_name + '_vis')):
-        shutil.rmtree(osp.join(args.out_path, args.vid_name + '_vis'))
-    os.makedirs(osp.join(args.out_path,args.vid_name+ '_vis'))
+if osp.exists(osp.join(args.out_path,args.vid_name + '_vis')):
+    shutil.rmtree(osp.join(args.out_path, args.vid_name + '_vis'))
+os.makedirs(osp.join(args.out_path,args.vid_name+ '_vis'))
 
-    num_images = _read_video(args)
-    gpu_dev = core.DeviceOption(caffe2_pb2.CUDA, cfg.ROOT_GPU_ID)
-    name_scope = 'gpu_{}'.format(cfg.ROOT_GPU_ID)
-    main(name_scope, gpu_dev, num_images, args)
+num_images = _read_video(args)
+gpu_dev = core.DeviceOption(caffe2_pb2.CUDA, cfg.ROOT_GPU_ID)
+name_scope = 'gpu_{}'.format(cfg.ROOT_GPU_ID)
+
+model = initialize_model_from_cfg()
+num_classes = cfg.MODEL.NUM_CLASSES
+all_boxes, all_segms, all_keyps = empty_results(num_classes, num_images) 
+
+
+
+
+
+
+
+
+
