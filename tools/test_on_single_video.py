@@ -339,7 +339,6 @@ def main(name_scope, gpu_dev, num_images, args):
     print(boxes_export)
     keyp_path = '/data2/{}_keypoints.npy'.format(args.vid_name)
     boxes_path = '/data2/{}_boxes.npy'.format(args.vid_name)
-    with 
     np.save(keyp_path,keypoint_export)
     np.save(boxes_path,boxes_export)
     print('Saved keypoints to: {}'.format(keyp_path)) 
