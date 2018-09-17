@@ -61,7 +61,7 @@ def parse_args():
 
 
 def _read_video(args):
-    timestep = 1000
+    timestep = 100
     vidcap = cv2.VideoCapture(args.video_path)
     success,image = vidcap.read()
     count = 1
