@@ -337,8 +337,9 @@ def main(name_scope, gpu_dev, num_images, args):
     print(keypoint_export) 
     boxes_export = [x[0] for x in all_boxes[1]]
     print(boxes_export)
-    keyp_path = '/home/ubuntu/docker_volumes/data2/{}_keypoints.npy'.format(args.vid_name)
-    boxes_path = '/home/ubuntu/docker_volumes/data2/{}_boxes.npy'.format(args.vid_name)
+    keyp_path = '/data2/{}_keypoints.npy'.format(args.vid_name)
+    boxes_path = '/data2/{}_boxes.npy'.format(args.vid_name)
+    with 
     np.save(keyp_path,keypoint_export)
     np.save(boxes_path,boxes_export)
     print('Saved keypoints to: {}'.format(keyp_path)) 
